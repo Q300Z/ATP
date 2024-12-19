@@ -12,31 +12,41 @@ class AndroidDevice {
 
     public AndroidDevice(String id) {
         this.id = id;
-        this.installedApps = new ArrayList<>();
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setDeviceInfo() throws Exception {
+        this.state = executeCommand("adb -s " + id + " get-state").trim();
+        this.model = executeCommand("adb -s " + id + " shell getprop ro.product.model").trim();
+        this.androidVersion = executeCommand("adb -s " + id + " shell getprop ro.build.version.release").trim();
+        this.batteryLevel = extractBatteryLevel();
+        this.wifiInfo = new WifiInfo();
+        this.wifiInfo.extractWifiInfo(id);
+        this.installedApps = extractInstalledApps();
     }
 
-    public void setAndroidVersion(String androidVersion) {
-        this.androidVersion = androidVersion;
+    private String executeCommand(String command) throws Exception {
+        return AndroidDeviceManager.executeCommand(command);
     }
 
-    public void setBatteryLevel(String batteryLevel) {
-        this.batteryLevel = batteryLevel;
+    private String extractBatteryLevel() throws Exception {
+        String batteryInfo = executeCommand("adb -s " + id + " shell dumpsys battery | grep level").trim();
+        return batteryInfo.replace("level: ", "").trim();
     }
 
-    public void setWifiInfo(WifiInfo wifiInfo) {
-        this.wifiInfo = wifiInfo;
+    private List<AppInfo> extractInstalledApps() throws Exception {
+        String appsOutput = executeCommand("adb -s " + id + " shell pm list packages -3").trim();
+        List<AppInfo> apps = new ArrayList<>();
+        for (String line : appsOutput.split("\n")) {
+            String packageName = line.replace("package:", "").trim();
+            String appVersion = extractAppVersion(packageName);
+            apps.add(new AppInfo(packageName, appVersion));
+        }
+        return apps;
     }
 
-    public void setInstalledApps(List<AppInfo> installedApps) {
-        this.installedApps = installedApps;
-    }
-
-    public void setState(String state) {
-        this.state = state;
+    private String extractAppVersion(String packageName) throws Exception {
+        String versionInfo = executeCommand("adb -s " + id + " shell dumpsys package " + packageName + " | grep versionName").trim();
+        return versionInfo.isEmpty() ? "Non spécifiée" : versionInfo.split("=")[1].trim();
     }
 
     @Override
