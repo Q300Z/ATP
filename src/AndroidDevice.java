@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class AndroidDevice {
+public class AndroidDevice {
     private final String id;
     private String model;
     private String androidVersion;
@@ -12,6 +12,34 @@ class AndroidDevice {
 
     public AndroidDevice(String id) {
         this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public String getAndroidVersion() {
+        return androidVersion;
+    }
+
+    public String getBatteryLevel() {
+        return batteryLevel;
+    }
+
+    public WifiInfo getWifiInfo() {
+        return wifiInfo;
+    }
+
+    public List<AppInfo> getInstalledApps() {
+        return installedApps;
+    }
+
+    public String getState() {
+        return state;
     }
 
     public void setDeviceInfo() throws Exception {

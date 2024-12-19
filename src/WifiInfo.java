@@ -2,7 +2,7 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class WifiInfo {
+public class WifiInfo {
     private String ssid;
     private String[] ipAddress;
     private String macAddress;
@@ -11,6 +11,30 @@ class WifiInfo {
     private String serverAddress;
 
     public WifiInfo() {
+    }
+
+    public String getSsid() {
+        return ssid;
+    }
+
+    public String[] getIpAddress() {
+        return ipAddress;
+    }
+
+    public String getMacAddress() {
+        return macAddress;
+    }
+
+    public String getLinkSpeed() {
+        return linkSpeed;
+    }
+
+    public String[] getDnsAddress() {
+        return dnsAddress;
+    }
+
+    public String getServerAddress() {
+        return serverAddress;
     }
 
     public void extractWifiInfo(String deviceId) throws Exception {

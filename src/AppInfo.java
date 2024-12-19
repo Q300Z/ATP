@@ -1,4 +1,4 @@
-class AppInfo {
+public class AppInfo {
     private String packageName;
     private String version;
 
@@ -9,9 +9,17 @@ class AppInfo {
         if (version == null || version.isEmpty()) {
             throw new IllegalArgumentException("La version ne peut pas être vide.");
         }
-        
+
         this.packageName = packageName;
         this.version = version;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     @Override
