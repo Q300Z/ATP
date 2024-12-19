@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: AndroidDeviceManagerGUI
+Implementation-Version: 0.1.0
+Specification-Version: 1.0
+Created-By: Q300Z
+Build-Jdk: temurin-1.8.0_432 (Eclipse Temurin)
