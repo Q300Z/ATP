@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Définir les variables de répertoire
 SRC_DIR="src"
