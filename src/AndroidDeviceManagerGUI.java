@@ -164,16 +164,7 @@ public class AndroidDeviceManagerGUI {
         apkFilePathField.setEditable(false);
         fileSelectionPanel.add(apkFilePathField);
 
-        JButton browseButton = new JButton("Parcourir...");
-        browseButton.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Fichiers APK", "apk"));
-            int result = fileChooser.showOpenDialog(null);
-            if (result == JFileChooser.APPROVE_OPTION) {
-                apkFilePathField.setText(fileChooser.getSelectedFile().getAbsolutePath());
-            }
-        });
+        JButton browseButton = getFinderBtn(apkFilePathField);
         fileSelectionPanel.add(browseButton);
 
         JButton installApkButton = new JButton("Installer");
@@ -200,5 +191,19 @@ public class AndroidDeviceManagerGUI {
         });
         fileSelectionPanel.add(installApkButton);
         return fileSelectionPanel;
+    }
+
+    private static JButton getFinderBtn(JTextField apkFilePathField) {
+        JButton browseButton = new JButton("Parcourir...");
+        browseButton.addActionListener(e -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Fichiers APK", "apk"));
+            int result = fileChooser.showOpenDialog(null);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                apkFilePathField.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            }
+        });
+        return browseButton;
     }
 }
