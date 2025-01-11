@@ -26,9 +26,9 @@ public class DeviceActions {
         }
     }
 
-    public boolean slideElement(int xA,int yA,int xB, int yB) {
+    public boolean slideElement(int xA, int yA, int xB, int yB) {
         try {
-            executeCommand("adb -s " + device.getId() + " shell input swipe " + xA + " " + yA+" "+ xB + " " + yB);  // Glisse l'élément via AndroidDevice
+            executeCommand("adb -s " + device.getId() + " shell input swipe " + xA + " " + yA + " " + xB + " " + yB);  // Glisse l'élément via AndroidDevice
             return true;
         } catch (Exception e) {
             System.out.println("Erreur lors du glissement de l'élément : " + e.getMessage());

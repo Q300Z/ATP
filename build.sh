@@ -5,13 +5,14 @@ SRC_DIR="src"
 BUILD_DIR="build"
 OUTPUT_JAR="AndroidDeviceManager.jar"
 MANIFEST_FILE="MANIFEST.MF"
+JAVA_DIR="$HOME/.jdks/temurin-1.8.0_432/bin"
 
 # Créer le répertoire de compilation s'il n'existe pas
 mkdir -p "$BUILD_DIR"
 
 # Compiler le projet Java
 echo "Compilation du projet Java..."
-javac -source 1.8 -target 1.8 -d "$BUILD_DIR" -sourcepath "$SRC_DIR" "$SRC_DIR"/*.java
+"$JAVA_DIR"/javac -source 1.8 -target 1.8 -d "$BUILD_DIR" -sourcepath "$SRC_DIR" "$SRC_DIR"/*.java
 
 # Vérifier si la compilation a réussi
 if [ $? -ne 0 ]; then
@@ -21,7 +22,7 @@ fi
 
 # Créer le fichier JAR avec le MANIFEST
 echo "Création du fichier JAR avec manifest..."
-jar cfm "$OUTPUT_JAR" "$MANIFEST_FILE" -C "$BUILD_DIR" .
+"$JAVA_DIR"/jar cfm "$OUTPUT_JAR" "$MANIFEST_FILE" -C "$BUILD_DIR" .
 
 # Vérifier si le fichier JAR a été créé
 if [ ! -f "$OUTPUT_JAR" ]; then
